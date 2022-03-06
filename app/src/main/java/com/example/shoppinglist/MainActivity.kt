@@ -2,6 +2,7 @@ package com.example.shoppinglist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.adapters.BlockAdapter
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         //Define the RecyclerView and connect it to the adapter
         val recyclerView = findViewById<RecyclerView>(R.id.recylcer_view_main)
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
         val blockAdapter = BlockAdapter(this, getList())
         recyclerView.adapter = blockAdapter
 
