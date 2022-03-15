@@ -1,5 +1,6 @@
 package com.example.shoppinglist
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.shoppinglist.adapters.BlockAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
     //Boolean to track FAB-State
     private var isExpanded = false
 
+    var blockList = ArrayList<Block>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,29 +52,32 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view_main)
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        val blockAdapter = BlockAdapter(this, getList(11, 2, 10))
+        blockList = getBlocks()
+        val blockAdapter = BlockAdapter(this, blockList)
         recyclerView.adapter = blockAdapter
 
         //Define OnClick-Listeners for the FABs
         findViewById<FloatingActionButton>(R.id.main_fab).setOnClickListener { onMainFABClick() }
-
-
+        findViewById<FloatingActionButton>(R.id.edit_blocks_fab).setOnClickListener {
+            //TODO: Collapse FABs?
+            //Start EditBlocksActivity
+            val intent = Intent(this@MainActivity, EditBlocksActivity::class.java).apply {}
+            startActivity(intent)
+        }
+        findViewById<FloatingActionButton>(R.id.quick_list_fab).setOnClickListener {
+            //TODO: Implement QuickList Feature
+        }
     }
 
-    //Generates a List of Strings for Testing Purposes
-    private fun getList(blocks: Int, minItems: Int, maxItems: Int): ArrayList<Block> {
-        val list = ArrayList<Block>()
-
-        for (i in 1..(blocks)) {
-            val items = ArrayList<String>()
-            var j = Random.nextInt(minItems, maxItems)
-            while (j > 0) {
-                items.add("Item $j")
-                j--
-            }
-            val block = Block("Block $i", items)
-            list.add(block)
-        }
+    /**
+     * Get all Blocks from the database
+     * @return A List of all Blocks
+     */
+    private fun getBlocks(): ArrayList<Block> {
+        var list = ArrayList<Block>()
+        val t = Thread(Runnable { list = DatabaseHandler.getBlocks(this) as ArrayList<Block> })
+        t.start()
+        t.join() //TODO: Inefficient
 
         return list
     }

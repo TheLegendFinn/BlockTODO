@@ -5,18 +5,32 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
+/**
+ * TODO: Write Docs
+ */
+
 @Dao
 interface ItemDAO {
 
-    @Query("SELECT * from item where block = (:block)")
-    fun getByBlock(block: String): List<Item>
+    //Get all Items of a specific Block
+    @Query("SELECT * from item where blockId = (:block)")
+    fun getByBlock(block: Int): List<Item>
 
-    @Query("SELECT block from item")
-    fun getBlocks(): List<String>
+    //TODO: Query to get all Items as List<List<Item>>?
+
+    //Get all Blocks
+    @Query("SELECT * from block")
+    fun getBlocks(): List<Block>
 
     @Insert
-    fun insert(item : Item)
+    fun insertItem(item : Item)
+
+    @Insert
+    fun insertBlock(block: Block)
 
     @Delete
-    fun delete()
+    fun deleteItem(item : Item)
+
+    @Delete
+    fun deleteBlock(block: Block)
 }

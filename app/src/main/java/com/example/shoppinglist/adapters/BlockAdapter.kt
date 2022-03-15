@@ -8,6 +8,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.Block
+import com.example.shoppinglist.DatabaseHandler
+import com.example.shoppinglist.Item
 import com.example.shoppinglist.R
 
 /**
@@ -15,7 +17,7 @@ import com.example.shoppinglist.R
  * @param context Activity Context
  * @param blocks List of Blocks to process
  */
-class BlockAdapter(val context: Context, val blocks: ArrayList<Block>) :
+class BlockAdapter(val context: Context, val blocks: List<Block>) :
     RecyclerView.Adapter<BlockAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,17 +29,23 @@ class BlockAdapter(val context: Context, val blocks: ArrayList<Block>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //Get the block and set Title
         val block = blocks.get(position)
-        holder.blockName.text = block.title
+        holder.blockName.text = block.name
 
         //LayoutInflater to inflate the Block Items
-        val inflater =  context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        for (item in block.items) {
+        //Get Items
+        var items = ArrayList<Item>();
+        /*Thread(Runnable {
+            items = DatabaseHandler.getItemsByBlock(context, block.id) as ArrayList<Item>
+        }).start() */
+
+        for (item in items) {
             //Inflate the Item-Layout
             val tv = inflater.inflate(R.layout.block_item, null)
 
             //Set Item-Text and attach to the LinearLayout
-            tv.findViewById<TextView>(R.id.block_item_name).setText(item)
+            tv.findViewById<TextView>(R.id.block_item_name).setText(item.text)
             holder.linearLayout.addView(tv)
         }
     }
