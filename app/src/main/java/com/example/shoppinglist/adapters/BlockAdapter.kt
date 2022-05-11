@@ -17,8 +17,10 @@ import com.example.shoppinglist.R
  * @param context Activity Context
  * @param blocks List of Blocks to process
  */
-class BlockAdapter(val context: Context, val blocks: List<Block>) :
+class BlockAdapter(val context: Context) :
     RecyclerView.Adapter<BlockAdapter.ViewHolder>() {
+
+    private var blocks: List<Block> = ArrayList<Block>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -28,7 +30,7 @@ class BlockAdapter(val context: Context, val blocks: List<Block>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //Get the block and set Title
-        val block = blocks.get(position)
+        val block = blocks[position]
         holder.blockName.text = block.name
 
         //LayoutInflater to inflate the Block Items
@@ -52,6 +54,15 @@ class BlockAdapter(val context: Context, val blocks: List<Block>) :
 
     override fun getItemCount(): Int {
         return blocks.size
+    }
+
+    /**
+     * Setter Function for the Adapter DataSet
+     * @param blockList DataSet to use
+     */
+    fun setBlocks(blockList: List<Block>) {
+        this.blocks = blockList
+        notifyDataSetChanged()
     }
 
     /**

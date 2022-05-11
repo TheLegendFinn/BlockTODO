@@ -26,7 +26,7 @@ data class Item(
     val id: Int,
     @ColumnInfo(name = "text")
     val text: String,
-    @ColumnInfo(name = "blockId")
+    @ColumnInfo(name = "blockId", index = true)
     val blockId: Int
 ) {
 }

@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 /**
  * TODO: Write Docs
  */
-@Database(entities = [Item::class, Block::class], version = 4, exportSchema = false)
+@Database(entities = [Item::class, Block::class], version = 6)
 abstract class BlockDatabase : RoomDatabase() {
     abstract fun itemDAO(): ItemDAO
 
@@ -28,7 +28,7 @@ abstract class BlockDatabase : RoomDatabase() {
                     context.applicationContext,
                     BlockDatabase::class.java,
                     "block_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 return INSTANCE as BlockDatabase
             }
         }

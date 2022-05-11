@@ -6,10 +6,15 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.shoppinglist.adapters.BlockAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,27 +44,35 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    //ViewModel
+    private lateinit var viewModel: MainViewModel
+
     //Boolean to track FAB-State
     private var isExpanded = false
-
-    var blockList = ArrayList<Block>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Define the RecyclerView and connect it to the adapter
+        //Initialise the ViewModel
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        //Define the RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view_main)
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        blockList = getBlocks()
-        val blockAdapter = BlockAdapter(this, blockList)
+
+        //Create and connect the adapter
+        val blockAdapter = BlockAdapter(this)
         recyclerView.adapter = blockAdapter
+
+        //Observe the Block-LiveData
+        viewModel.blockLiveData.observe(this) { blocks -> blockAdapter.setBlocks(blocks) }
 
         //Define OnClick-Listeners for the FABs
         findViewById<FloatingActionButton>(R.id.main_fab).setOnClickListener { onMainFABClick() }
         findViewById<FloatingActionButton>(R.id.edit_blocks_fab).setOnClickListener {
-            //TODO: Collapse FABs?
+            //TODO: Collapse FABs
             //Start EditBlocksActivity
             val intent = Intent(this@MainActivity, EditBlocksActivity::class.java).apply {}
             startActivity(intent)
@@ -70,15 +83,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Get all Blocks from the database
-     * @return A List of all Blocks
+     * Get all Blocks from the database //TODO Neccessary?
+     * @return An ArrayList of all Blocks
      */
-    private fun getBlocks(): ArrayList<Block> {
-        var list = ArrayList<Block>()
-        val t = Thread(Runnable { list = DatabaseHandler.getBlocks(this) as ArrayList<Block> })
-        t.start()
-        t.join() //TODO: Inefficient
-
+    private suspend fun getBlocks(): ArrayList<Block> {
+        val list = DatabaseHandler.getBlocks(this@MainActivity) as ArrayList<Block>
         return list
     }
 

@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 /**
  * This Activity is used to manage the users Blocks (Create/Delete)
+ * TODO ViewModel?
  */
 class EditBlocksActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +28,10 @@ class EditBlocksActivity : AppCompatActivity() {
             if(blockName == "") return@setOnClickListener
 
             //Create Block and add to Database
-            Block(this, blockName)
-            //TODO: Notify BlockAdapter
+            val block = Block(blockName)
+            lifecycleScope.launch {
+                DatabaseHandler.insertBlock(this@EditBlocksActivity, block)
+            }
         }
     }
 
