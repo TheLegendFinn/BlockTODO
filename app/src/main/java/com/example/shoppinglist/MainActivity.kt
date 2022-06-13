@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.lifecycle.ViewModel
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.shoppinglist.adapters.BlockAdapter
+import com.example.shoppinglist.listview.ListViewActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
 
@@ -63,7 +63,17 @@ class MainActivity : AppCompatActivity() {
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         //Create and connect the adapter
-        val blockAdapter = BlockAdapter(this)
+        val blockAdapter = BlockAdapter(this, object : BlockAdapter.OnItemClickListener {
+            override fun onItemClick(view: View, blockId: Int) {
+                val intent = Intent(this@MainActivity, ListViewActivity::class.java)
+                intent.putExtra(
+                    "blockName",
+                    view.findViewById<TextView>(R.id.recycler_block_name).text
+                )
+                    .putExtra("blockId", blockId)
+                startActivity(intent)
+            }
+        })
         recyclerView.adapter = blockAdapter
 
         //Observe the Block-LiveData
@@ -80,15 +90,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.quick_list_fab).setOnClickListener {
             //TODO: Implement QuickList Feature
         }
-    }
-
-    /**
-     * Get all Blocks from the database //TODO Neccessary?
-     * @return An ArrayList of all Blocks
-     */
-    private suspend fun getBlocks(): ArrayList<Block> {
-        val list = DatabaseHandler.getBlocks(this@MainActivity) as ArrayList<Block>
-        return list
     }
 
     /**

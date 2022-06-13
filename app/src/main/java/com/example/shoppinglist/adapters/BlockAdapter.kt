@@ -6,26 +6,45 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.Block
-import com.example.shoppinglist.DatabaseHandler
 import com.example.shoppinglist.Item
 import com.example.shoppinglist.R
+import com.example.shoppinglist.database.DatabaseHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * Class connects the [Block]s with the RecyclerView of the MainActivity
  * @param context Activity Context
- * @param blocks List of Blocks to process
+ * @param itemClickListener OnClickListener for the Items
  */
-class BlockAdapter(val context: Context) :
+class BlockAdapter(val context: Context, private val itemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<BlockAdapter.ViewHolder>() {
+
+    /**
+     * Interface that defines the OnClickListener for the RecyclerView Items
+     */
+    interface OnItemClickListener {
+        fun onItemClick(view: View, blockId: Int)
+    }
 
     private var blocks: List<Block> = ArrayList<Block>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.recycler_block, parent, false)
-        )
+        //Define the viewHolder
+        val container = LayoutInflater.from(context).inflate(R.layout.recycler_block, parent, false)
+        val viewHolder = ViewHolder(container)
+
+        //Define the OnClickListener
+        viewHolder.view.setOnClickListener {
+            itemClickListener.onItemClick(it, this.blocks[viewHolder.adapterPosition].id)
+        }
+
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -37,18 +56,19 @@ class BlockAdapter(val context: Context) :
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         //Get Items
-        var items = ArrayList<Item>();
-        /*Thread(Runnable {
-            items = DatabaseHandler.getItemsByBlock(context, block.id) as ArrayList<Item>
-        }).start() */
+        DatabaseHandler.getItemsByBlock(context, block.id).observe(context as LifecycleOwner) {
+            //Remove every child except blockName
+            holder.linearLayout.removeViews(1, holder.linearLayout.childCount - 1)
 
-        for (item in items) {
-            //Inflate the Item-Layout
-            val tv = inflater.inflate(R.layout.block_item, null)
+            //re-add children
+            for (item in it) {
+                //Inflate the Item-Layout
+                val tv = inflater.inflate(R.layout.block_item, null)
 
-            //Set Item-Text and attach to the LinearLayout
-            tv.findViewById<TextView>(R.id.block_item_name).setText(item.text)
-            holder.linearLayout.addView(tv)
+                //Set Item-Text and attach to the LinearLayout
+                tv.findViewById<TextView>(R.id.block_item_name).setText(item.text)
+                holder.linearLayout.addView(tv)
+            }
         }
     }
 
@@ -71,7 +91,7 @@ class BlockAdapter(val context: Context) :
      * @property blockName Name of the Block
      * @property linearLayout LinearLayout to add the items into
      */
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val blockName = view.findViewById<TextView>(R.id.recycler_block_name)
         val linearLayout = view.findViewById<LinearLayout>(R.id.recycler_block_lin)
     }

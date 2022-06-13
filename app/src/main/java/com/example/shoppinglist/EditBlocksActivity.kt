@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.lifecycleScope
+import com.example.shoppinglist.database.DatabaseHandler
 import kotlinx.coroutines.launch
 
 /**

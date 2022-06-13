@@ -22,11 +22,11 @@ import androidx.room.PrimaryKey
     )]
 )
 data class Item(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
     @ColumnInfo(name = "text")
     val text: String,
     @ColumnInfo(name = "blockId", index = true)
-    val blockId: Int
+    val blockId: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0
 ) {
 }

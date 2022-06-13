@@ -1,8 +1,9 @@
-package com.example.shoppinglist
+package com.example.shoppinglist.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import java.lang.RuntimeException
+import com.example.shoppinglist.Block
+import com.example.shoppinglist.Item
 
 /**
  * Provides an API to access the Database
@@ -14,7 +15,7 @@ object DatabaseHandler {
      * @param block Id of the Block
      * @return  A List of all Items belonging to [block]
      */
-    suspend fun getItemsByBlock(context: Context, block: Int): List<Item> {
+    fun getItemsByBlock(context: Context, block: Int): LiveData<List<Item>> {
         val database = BlockDatabase.getDatabase(context)
         val dao = database.itemDAO()
         return dao.getByBlock(block)
@@ -51,5 +52,16 @@ object DatabaseHandler {
         val database = BlockDatabase.getDatabase(context)
         val dao = database.itemDAO()
         dao.insertBlock(block)
+    }
+
+    /**
+     * Deletes all Items of a given Block
+     * @param context Context
+     * @param block Block to delete all Items from
+     */
+    suspend fun deleteByBlock(context: Context, block: Int) {
+        val database = BlockDatabase.getDatabase(context)
+        val dao = database.itemDAO()
+        dao.deleteByBlock(block)
     }
 }
