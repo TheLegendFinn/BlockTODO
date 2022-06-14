@@ -8,9 +8,11 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.shoppinglist.adapters.BlockAdapter
+import com.example.shoppinglist.database.DatabaseHandler
 import com.example.shoppinglist.listview.ListViewActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
@@ -72,6 +74,12 @@ class MainActivity : AppCompatActivity() {
                 )
                     .putExtra("blockId", blockId)
                 startActivity(intent)
+            }
+        }, object : BlockAdapter.OnItemLongClickListener {
+            override fun onItemLongClick(view: View, blockId: Int) {
+                lifecycleScope.launch {
+                    DatabaseHandler.deleteBlock(this@MainActivity, blockId)
+                }
             }
         })
         recyclerView.adapter = blockAdapter

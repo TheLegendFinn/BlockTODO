@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
  * @param context Activity Context
  * @param itemClickListener OnClickListener for the Items
  */
-class BlockAdapter(val context: Context, private val itemClickListener: OnItemClickListener) :
+class BlockAdapter(val context: Context, private val itemClickListener: OnItemClickListener, private val itemLongClickListener: OnItemLongClickListener) :
     RecyclerView.Adapter<BlockAdapter.ViewHolder>() {
 
     /**
@@ -30,6 +30,13 @@ class BlockAdapter(val context: Context, private val itemClickListener: OnItemCl
      */
     interface OnItemClickListener {
         fun onItemClick(view: View, blockId: Int)
+    }
+
+    /**
+     * Interface that defines the OnLongClickListener for the RecyclerView Items
+     */
+    interface OnItemLongClickListener {
+        fun onItemLongClick(view: View, blockId: Int)
     }
 
     private var blocks: List<Block> = ArrayList<Block>()
@@ -42,6 +49,12 @@ class BlockAdapter(val context: Context, private val itemClickListener: OnItemCl
         //Define the OnClickListener
         viewHolder.view.setOnClickListener {
             itemClickListener.onItemClick(it, this.blocks[viewHolder.adapterPosition].id)
+        }
+
+        //Define the OnLongClickListener
+        viewHolder.view.setOnLongClickListener {
+            itemLongClickListener.onItemLongClick(it, this.blocks[viewHolder.adapterPosition].id)
+            return@setOnLongClickListener true
         }
 
         return viewHolder
