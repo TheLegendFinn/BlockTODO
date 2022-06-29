@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -35,7 +36,9 @@ class ListViewActivity : AppCompatActivity() {
             val itemText = editText.text.toString()
 
             //Filter Empty Items
-            if(itemText == ""){return@setOnClickListener}
+            if (itemText == "") {
+                return@setOnClickListener
+            }
 
             //Clear Input
             editText.setText("")
@@ -49,13 +52,13 @@ class ListViewActivity : AppCompatActivity() {
         }
 
         //Delete Button
-        findViewById<ImageButton>(R.id.list_view_delete_all_button).setOnClickListener{
-            lifecycleScope.launch{
+        findViewById<ImageButton>(R.id.list_view_delete_all_button).setOnClickListener {
+            lifecycleScope.launch {
                 DatabaseHandler.deleteByBlock(this@ListViewActivity, blockId)
             }
         }
 
-        //Observe the Livedata for the Items
+        //Observe the LiveData for the Items
         viewModel.itemLiveData.observe(this) { items -> setItems(items) }
 
         //Set title
@@ -68,13 +71,24 @@ class ListViewActivity : AppCompatActivity() {
      */
     fun setItems(items: List<Item>) {
         val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val linearLayout = findViewById<LinearLayout>(R.id.list_view_linear_layout)
 
-        findViewById<LinearLayout>(R.id.list_view_linear_layout).removeAllViews()
+        linearLayout.removeAllViews()
 
         for (item in items) {
-            val view = inflater.inflate(R.layout.block_item, null)
-            view.findViewById<TextView>(R.id.block_item_name).setText(item.text)
-            findViewById<LinearLayout>(R.id.list_view_linear_layout).addView(view)
+            val view = inflater.inflate(R.layout.block_item_check, null)
+            val cb = view.findViewById<CheckBox>(R.id.block_item_check_name)
+            cb.setText(item.text)
+            cb.setTag(R.id.tag_id, item.id)
+            linearLayout.addView(view)
         }
+    }
+
+    fun onCheckboxClicked(view: View) {
+        //Toast.makeText(this, "Item clicked: ${view.id}", Toast.LENGTH_LONG).show()
+        lifecycleScope.launch {
+            DatabaseHandler.deleteItem(this@ListViewActivity, view.getTag(R.id.tag_id) as Int)
+        }
+
     }
 }

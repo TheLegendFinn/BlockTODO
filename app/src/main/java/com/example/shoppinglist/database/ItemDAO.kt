@@ -31,8 +31,8 @@ interface ItemDAO {
     @Insert
     suspend fun insertBlock(block: Block)
 
-    @Delete
-    suspend fun deleteItem(item: Item)
+    @Query("DELETE FROM item WHERE id = (:item)")
+    suspend fun deleteItem(item: Int)
 
     @Query("DELETE FROM item WHERE blockId = (:block)")
     suspend fun deleteByBlock(block: Int)

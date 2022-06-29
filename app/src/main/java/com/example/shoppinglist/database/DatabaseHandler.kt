@@ -65,9 +65,25 @@ object DatabaseHandler {
         dao.deleteByBlock(block)
     }
 
-    suspend fun deleteBlock(context: Context, block: Int){
+    /**
+     * Deletes a Block from the Database
+     * @param context
+     * @param block Id of the block too delete
+     */
+    suspend fun deleteBlock(context: Context, block: Int) {
         val database = BlockDatabase.getDatabase(context)
         val dao = database.itemDAO()
         dao.deleteBlock(block)
+    }
+
+    /**
+     * Deletes an Item from the Database
+     * @param context
+     * @param item Id of the Item to delete
+     */
+    suspend fun deleteItem(context: Context, item: Int) {
+        val database = BlockDatabase.getDatabase(context)
+        val dao = database.itemDAO()
+        dao.deleteItem(item)
     }
 }
