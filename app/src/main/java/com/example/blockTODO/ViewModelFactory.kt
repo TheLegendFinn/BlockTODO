@@ -7,7 +7,6 @@ import com.example.blockTODO.listview.ListViewViewModel
 
 /**
  * ViewModelFactory currently used to create instances of [ListViewViewModel]
- * TODO Generalize
  */
 class ViewModelFactory(val application: Application, val intParam: Int ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

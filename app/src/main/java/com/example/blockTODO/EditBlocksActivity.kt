@@ -1,16 +1,15 @@
 package com.example.blockTODO
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.blockTODO.database.DatabaseHandler
 import kotlinx.coroutines.launch
 
 /**
  * This Activity is used to manage the users Blocks (Create/Delete)
- * TODO ViewModel?
  */
 class EditBlocksActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

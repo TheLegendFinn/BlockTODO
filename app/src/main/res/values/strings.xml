@@ -5,4 +5,5 @@
     <string name="block_name">Block Name</string>
     <string name="add">Add</string>
     <string name="new_item">New Item</string>
+    <string name="FAB_Description">FAB to add Blocks</string>
 </resources>

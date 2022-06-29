@@ -8,7 +8,8 @@ import com.example.blockTODO.Block
 import com.example.blockTODO.Item
 
 /**
- * TODO: Write Docs
+ * Implementation of the RoomDatabase
+ * Consists of tables for Items and Blocks
  */
 @Database(entities = [Item::class, Block::class], version = 6)
 abstract class BlockDatabase : RoomDatabase() {

@@ -1,7 +1,8 @@
 package com.example.blockTODO
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import com.example.blockTODO.database.DatabaseHandler
 
 /**
@@ -10,6 +11,6 @@ import com.example.blockTODO.database.DatabaseHandler
  */
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     val blockLiveData: LiveData<List<Block>>
-        get() = DatabaseHandler.getBlocks(getApplication()) //TODO Better Solution?
+        get() = DatabaseHandler.getBlocks(getApplication())
 
 }

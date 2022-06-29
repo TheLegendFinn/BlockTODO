@@ -8,7 +8,8 @@ import com.example.blockTODO.Block
 import com.example.blockTODO.Item
 
 /**
- * TODO: Write Docs
+ * Data Access Object for the RoomDatabase
+ * Implements the Database Queries
  */
 
 @Dao
@@ -17,8 +18,6 @@ interface ItemDAO {
     //Get all Items of a specific Block
     @Query("SELECT * from item where blockId = (:block)")
     fun getByBlock(block: Int): LiveData<List<Item>>
-
-    //TODO: Query to get all Items as List<List<Item>>?
 
     //Get all Blocks
     @Query("SELECT * from block")
