@@ -1,8 +1,8 @@
-package com.example.shoppinglist.quicklist
+package com.example.blockTODO.quicklist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.shoppinglist.R
+import com.example.blockTODO.R
 
 class QuickListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

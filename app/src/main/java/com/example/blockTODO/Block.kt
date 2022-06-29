@@ -1,11 +1,8 @@
-package com.example.shoppinglist
+package com.example.blockTODO
 
-import android.content.Context
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 /**
  * Database Table for Blocks

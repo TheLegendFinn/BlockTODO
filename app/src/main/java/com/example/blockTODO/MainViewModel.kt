@@ -1,8 +1,8 @@
-package com.example.shoppinglist
+package com.example.blockTODO
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.shoppinglist.database.DatabaseHandler
+import com.example.blockTODO.database.DatabaseHandler
 
 /**
  * ViewModel for the MainActivity

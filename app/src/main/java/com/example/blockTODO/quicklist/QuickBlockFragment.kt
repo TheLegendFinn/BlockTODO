@@ -1,11 +1,11 @@
-package com.example.shoppinglist.quicklist
+package com.example.blockTODO.quicklist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.shoppinglist.R
+import com.example.blockTODO.R
 
 private const val ARG_NAME = "blockName"
 

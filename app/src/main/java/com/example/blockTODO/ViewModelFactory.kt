@@ -1,9 +1,9 @@
-package com.example.shoppinglist
+package com.example.blockTODO
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.shoppinglist.listview.ListViewViewModel
+import com.example.blockTODO.listview.ListViewViewModel
 
 /**
  * ViewModelFactory currently used to create instances of [ListViewViewModel]

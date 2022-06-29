@@ -1,4 +1,4 @@
-package com.example.shoppinglist
+package com.example.blockTODO
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.shoppinglist.adapters.BlockAdapter
-import com.example.shoppinglist.database.DatabaseHandler
-import com.example.shoppinglist.listview.ListViewActivity
+import com.example.blockTODO.adapters.BlockAdapter
+import com.example.blockTODO.database.DatabaseHandler
+import com.example.blockTODO.listview.ListViewActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
 

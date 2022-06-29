@@ -1,11 +1,11 @@
-package com.example.shoppinglist.database
+package com.example.blockTODO.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.shoppinglist.Block
-import com.example.shoppinglist.Item
+import com.example.blockTODO.Block
+import com.example.blockTODO.Item
 
 /**
  * TODO: Write Docs

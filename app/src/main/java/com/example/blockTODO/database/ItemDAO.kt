@@ -1,12 +1,11 @@
-package com.example.shoppinglist.database
+package com.example.blockTODO.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.shoppinglist.Block
-import com.example.shoppinglist.Item
+import com.example.blockTODO.Block
+import com.example.blockTODO.Item
 
 /**
  * TODO: Write Docs

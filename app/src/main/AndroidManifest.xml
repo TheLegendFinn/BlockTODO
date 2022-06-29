@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.shoppinglist">
+    package="com.example.blockTODO">
 
     <application
         android:allowBackup="true"
@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingList">
-        <activity android:name=".listview.ListViewActivity"
-            android:parentActivityName="com.example.shoppinglist.MainActivity"/>
-        <activity android:name=".quicklist.QuickListActivity" />
-        <activity android:name=".EditBlocksActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.blockTODO.listview.ListViewActivity"
+            android:parentActivityName="com.example.blockTODO.MainActivity"/>
+        <activity android:name="com.example.blockTODO.quicklist.QuickListActivity" />
+        <activity android:name="com.example.blockTODO.EditBlocksActivity" />
+        <activity android:name="com.example.blockTODO.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

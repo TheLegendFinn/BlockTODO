@@ -1,4 +1,4 @@
-package com.example.shoppinglist.adapters
+package com.example.blockTODO.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,16 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shoppinglist.Block
-import com.example.shoppinglist.Item
-import com.example.shoppinglist.R
-import com.example.shoppinglist.database.DatabaseHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.blockTODO.Block
+import com.example.blockTODO.R
+import com.example.blockTODO.database.DatabaseHandler
 
 /**
  * Class connects the [Block]s with the RecyclerView of the MainActivity

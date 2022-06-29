@@ -1,9 +1,9 @@
-package com.example.shoppinglist.database
+package com.example.blockTODO.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import com.example.shoppinglist.Block
-import com.example.shoppinglist.Item
+import com.example.blockTODO.Block
+import com.example.blockTODO.Item
 
 /**
  * Provides an API to access the Database

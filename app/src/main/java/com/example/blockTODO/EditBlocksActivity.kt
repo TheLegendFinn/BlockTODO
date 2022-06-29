@@ -1,11 +1,11 @@
-package com.example.shoppinglist
+package com.example.blockTODO
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.lifecycleScope
-import com.example.shoppinglist.database.DatabaseHandler
+import com.example.blockTODO.database.DatabaseHandler
 import kotlinx.coroutines.launch
 
 /**

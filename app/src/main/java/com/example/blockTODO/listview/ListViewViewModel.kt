@@ -1,10 +1,10 @@
-package com.example.shoppinglist.listview
+package com.example.blockTODO.listview
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.shoppinglist.Item
-import com.example.shoppinglist.database.DatabaseHandler
+import com.example.blockTODO.Item
+import com.example.blockTODO.database.DatabaseHandler
 
 /**
  * ViewModel for the [ListViewActivity]

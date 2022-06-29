@@ -1,4 +1,4 @@
-package com.example.shoppinglist.listview
+package com.example.blockTODO.listview
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -8,10 +8,10 @@ import android.view.View
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.shoppinglist.Item
-import com.example.shoppinglist.R
-import com.example.shoppinglist.ViewModelFactory
-import com.example.shoppinglist.database.DatabaseHandler
+import com.example.blockTODO.Item
+import com.example.blockTODO.R
+import com.example.blockTODO.ViewModelFactory
+import com.example.blockTODO.database.DatabaseHandler
 import kotlinx.coroutines.launch
 
 class ListViewActivity : AppCompatActivity() {

@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.shoppinglist"
+        applicationId "com.example.blockTODO"
         minSdkVersion 16
         targetSdkVersion 31
         versionCode 1

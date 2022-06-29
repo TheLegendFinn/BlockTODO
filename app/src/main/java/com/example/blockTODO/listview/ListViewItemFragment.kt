@@ -1,11 +1,11 @@
-package com.example.shoppinglist.listview
+package com.example.blockTODO.listview
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.shoppinglist.R
+import com.example.blockTODO.R
 
 // the fragment initialization parameters
 private const val ARG_ITEM_NAME = "item_name"
